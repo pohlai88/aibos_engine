@@ -65,8 +65,7 @@ const Store: React.FC = () => {
       'users': <div className="w-6 h-6 bg-blue-500 rounded-lg flex items-center justify-center text-white text-xs font-bold">U</div>,
       'calculator': <div className="w-6 h-6 bg-green-500 rounded-lg flex items-center justify-center text-white text-xs font-bold">C</div>,
       'user-check': <div className="w-6 h-6 bg-purple-500 rounded-lg flex items-center justify-center text-white text-xs font-bold">✓</div>,
-      'crm': <div className="w-6 h-6 bg-blue-500 rounded-lg flex items-center justify-center text-white text-xs font-bold">C</div>,
-      'erp': <div className="w-6 h-6 bg-green-500 rounded-lg flex items-center justify-center text-white text-xs font-bold">E</div>,
+      // Removed: 'crm' and 'erp' hardcoded references
       'analytics': <div className="w-6 h-6 bg-indigo-500 rounded-lg flex items-center justify-center text-white text-xs font-bold">A</div>,
       'security': <div className="w-6 h-6 bg-red-500 rounded-lg flex items-center justify-center text-white text-xs font-bold">S</div>,
       'integration': <div className="w-6 h-6 bg-yellow-500 rounded-lg flex items-center justify-center text-white text-xs font-bold">I</div>,
@@ -79,9 +78,7 @@ const Store: React.FC = () => {
 
   const getCategoryIcon = (categoryId: string) => {
     const iconMap: Record<string, React.ReactNode> = {
-      'crm': <div className="w-5 h-5 bg-blue-500 rounded flex items-center justify-center text-white text-xs font-bold">C</div>,
-      'erp': <div className="w-5 h-5 bg-green-500 rounded flex items-center justify-center text-white text-xs font-bold">E</div>,
-      'hr': <div className="w-5 h-5 bg-purple-500 rounded flex items-center justify-center text-white text-xs font-bold">H</div>,
+      // Removed: 'crm', 'erp', and 'hr' hardcoded references
       'finance': <div className="w-5 h-5 bg-green-500 rounded flex items-center justify-center text-white text-xs font-bold">F</div>,
       'marketing': <div className="w-5 h-5 bg-orange-500 rounded flex items-center justify-center text-white text-xs font-bold">M</div>,
       'sales': <div className="w-5 h-5 bg-orange-500 rounded flex items-center justify-center text-white text-xs font-bold">S</div>,

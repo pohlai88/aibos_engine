@@ -13,8 +13,8 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@aibos/core-sdk": "file:../../packages/core-sdk",
-    "@aibos/types": "file:../../packages/types",
+    "@aibos/core-sdk": "workspace:*",
+    "@aibos/types": "workspace:*",
     "@hookform/resolvers": "^3.3.2",
     "framer-motion": "^10.16.4",
     "react": "^18.2.0",

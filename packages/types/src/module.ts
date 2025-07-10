@@ -317,9 +317,6 @@ export interface UsageTier {
 }
 
 export enum ModuleCategory {
-  CRM = 'crm',
-  ERP = 'erp',
-  HR = 'hr',
   FINANCE = 'finance',
   MARKETING = 'marketing',
   SALES = 'sales',
@@ -393,4 +390,4 @@ export interface ModuleMetrics {
   activeUsers: number;
   /** Storage usage in MB */
   storageUsage: number;
-} 
+}

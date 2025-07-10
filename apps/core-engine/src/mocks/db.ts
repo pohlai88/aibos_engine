@@ -8,25 +8,8 @@ const generateId = (): string => {
 // Simplified mock data that matches the complex type definitions
 export const mockDB = {
   modules: [
-    {
-      moduleId: 'crm-module',
-      installed: true,
-      enabled: true,
-      installedAt: new Date('2024-01-01'),
-      updatedAt: new Date('2024-01-15'),
-      version: '1.0.0',
-      health: 'healthy' as const
-    } as ModuleStatus,
-    {
-      moduleId: 'erp-module',
-      installed: true,
-      enabled: false,
-      installedAt: new Date('2024-01-05'),
-      updatedAt: new Date('2024-01-10'),
-      version: '2.1.0',
-      health: 'warning' as const,
-      error: 'Configuration incomplete'
-    } as ModuleStatus
+    // Removed hardcoded CRM and ERP module references
+    // Keep this array empty or add generic test modules as needed
   ],
   users: [
     {
@@ -166,7 +149,7 @@ export const mockDBOperations = {
   },
 
   getModuleById: (id: string) => {
-    return mockDB.modules.find(module => module.moduleId === id);
+    return mockDB.modules.find(module => (module as ModuleStatus).moduleId === id);
   },
 
   createModule: (moduleData: Partial<ModuleStatus>) => {
@@ -180,16 +163,16 @@ export const mockDBOperations = {
       health: moduleData.health || 'healthy',
       error: moduleData.error
     } as ModuleStatus;
-    mockDB.modules.push(newModule);
+(mockDB.modules as ModuleStatus[]).push(newModule);
     return newModule;
   },
 
   updateModule: (id: string, updates: Partial<ModuleStatus>) => {
-    const moduleIndex = mockDB.modules.findIndex(module => module.moduleId === id);
+    const moduleIndex = mockDB.modules.findIndex(module => (module as ModuleStatus).moduleId === id);
     if (moduleIndex === -1) return null;
     
-    mockDB.modules[moduleIndex] = {
-      ...mockDB.modules[moduleIndex],
+    (mockDB.modules[moduleIndex] as ModuleStatus) = {
+      ...(mockDB.modules[moduleIndex] as ModuleStatus),
       ...updates,
       updatedAt: new Date()
     } as ModuleStatus;
@@ -197,7 +180,7 @@ export const mockDBOperations = {
   },
 
   deleteModule: (id: string) => {
-    const moduleIndex = mockDB.modules.findIndex(module => module.moduleId === id);
+    const moduleIndex = mockDB.modules.findIndex(module => (module as ModuleStatus).moduleId === id);
     if (moduleIndex === -1) return false;
     
     mockDB.modules.splice(moduleIndex, 1);
@@ -372,4 +355,4 @@ export const mockDBOperations = {
   getTenantById: (id: string) => {
     return mockDB.tenants.find(tenant => tenant.id === id);
   }
-}; 
+};

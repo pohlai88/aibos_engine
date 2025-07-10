@@ -1,8 +1,69 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useWorkspace } from '../contexts/WorkspaceContext';
 import { mockNotifications } from '../utils/mockData';
 import { apiService } from '../services/api';
+
+// Tailwind CSS-based icon components
+const CheckCircle = ({ className, size = 24 }: { className?: string; size?: number }) => (
+  <div className={`${className} flex items-center justify-center`} style={{ width: size, height: size }}>
+    <div className="w-full h-full bg-current rounded-full flex items-center justify-center">
+      <div className="w-3/4 h-3/4 bg-white rounded-full flex items-center justify-center">
+        <div className="w-1/2 h-1/2 bg-current rounded-full"></div>
+      </div>
+    </div>
+  </div>
+);
+
+const Users = ({ className, size = 24 }: { className?: string; size?: number }) => (
+  <div className={`${className} flex items-center justify-center`} style={{ width: size, height: size }}>
+    <div className="relative">
+      <div className="w-3 h-3 bg-current rounded-full"></div>
+      <div className="w-3 h-3 bg-current rounded-full absolute -top-1 -left-1"></div>
+      <div className="w-3 h-3 bg-current rounded-full absolute -top-1 -right-1"></div>
+    </div>
+  </div>
+);
+
+const TrendingUp = ({ className, size = 24 }: { className?: string; size?: number }) => (
+  <div className={`${className} flex items-center justify-center`} style={{ width: size, height: size }}>
+    <div className="relative w-full h-full">
+      <div className="absolute bottom-0 left-0 w-1 h-3 bg-current"></div>
+      <div className="absolute bottom-1 left-1 w-1 h-2 bg-current"></div>
+      <div className="absolute bottom-2 left-2 w-1 h-4 bg-current"></div>
+      <div className="absolute bottom-3 left-3 w-1 h-1 bg-current"></div>
+    </div>
+  </div>
+);
+
+const Activity = ({ className, size = 24 }: { className?: string; size?: number }) => (
+  <div className={`${className} flex items-center justify-center`} style={{ width: size, height: size }}>
+    <div className="relative w-full h-full">
+      <div className="absolute bottom-0 left-0 w-1 h-2 bg-current"></div>
+      <div className="absolute bottom-0 left-2 w-1 h-4 bg-current"></div>
+      <div className="absolute bottom-0 left-4 w-1 h-1 bg-current"></div>
+      <div className="absolute bottom-0 left-6 w-1 h-3 bg-current"></div>
+    </div>
+  </div>
+);
+
+const Package = ({ className, size = 20 }: { className?: string; size?: number }) => (
+  <div className={`${className} flex items-center justify-center`} style={{ width: size, height: size }}>
+    <div className="relative w-full h-full">
+      <div className="w-full h-full border-2 border-current rounded"></div>
+      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-2 h-1 bg-current"></div>
+    </div>
+  </div>
+);
+
+const Clock = ({ className, size = 20 }: { className?: string; size?: number }) => (
+  <div className={`${className} flex items-center justify-center`} style={{ width: size, height: size }}>
+    <div className="relative w-full h-full">
+      <div className="w-full h-full border-2 border-current rounded-full"></div>
+      <div className="absolute top-1/2 left-1/2 w-0.5 h-2 bg-current transform -translate-x-1/2 -translate-y-1/2 origin-bottom"></div>
+      <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-current transform -translate-x-1/2 -translate-y-1/2"></div>
+    </div>
+  </div>
+);
 
 const Dashboard: React.FC = () => {
   const { installedModules, currentTenant } = useWorkspace();
@@ -10,7 +71,6 @@ const Dashboard: React.FC = () => {
   const [isTesting, setIsTesting] = useState(false);
   
   const activeModules = installedModules.filter(m => m.enabled);
-  const inactiveModules = installedModules.filter(m => !m.enabled);
   const recentNotifications = mockNotifications.slice(0, 3);
 
   const getModuleIcon = (iconName: string) => {
@@ -25,14 +85,14 @@ const Dashboard: React.FC = () => {
   const testApiConnection = async () => {
     setIsTesting(true);
     setApiTestResult('');
-    
     try {
       // Test tenants endpoint
       const tenantsResponse = await apiService.get('/v1/tenants');
       const modulesResponse = await apiService.get('/v1/modules');
-      
+      let tenantsCount = Array.isArray(tenantsResponse.data) ? tenantsResponse.data.length : 0;
+      let modulesCount = Array.isArray(modulesResponse.data) ? modulesResponse.data.length : 0;
       if (tenantsResponse.success && modulesResponse.success) {
-        setApiTestResult(`✅ API Connected! Found ${tenantsResponse.data.length} tenants and ${modulesResponse.data.length} modules`);
+        setApiTestResult(`✅ API Connected! Found ${tenantsCount} tenants and ${modulesCount} modules`);
       } else {
         setApiTestResult(`❌ API Error: ${tenantsResponse.error || modulesResponse.error}`);
       }
@@ -173,12 +233,6 @@ const Dashboard: React.FC = () => {
                         module.health === 'warning' ? 'bg-warning-500' :
                         'bg-error-500'
                       }`}></div>
-                      <Link
-                        to={`/modules/${module.id}`}
-                        className="p-2 text-gray-400 hover:text-gray-600"
-                      >
-                        <ArrowRight size={16} />
-                      </Link>
                     </div>
                   </div>
                 ))}
@@ -214,12 +268,12 @@ const Dashboard: React.FC = () => {
               ))}
             </div>
             <div className="mt-4 pt-4 border-t border-gray-200">
-              <Link
-                to="/notifications"
+              <a
+                href="/notifications"
                 className="text-sm text-primary-600 hover:text-primary-700 font-medium"
               >
                 View all activity →
-              </Link>
+              </a>
             </div>
           </div>
         </div>
@@ -229,8 +283,8 @@ const Dashboard: React.FC = () => {
       <div className="card p-6">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Link
-            to="/store"
+          <a
+            href="/store"
             className="flex items-center space-x-3 p-4 border border-gray-200 rounded-lg hover:border-primary-300 hover:bg-primary-50 transition-colors"
           >
             <Package className="text-primary-600" size={20} />
@@ -238,10 +292,10 @@ const Dashboard: React.FC = () => {
               <p className="font-medium text-gray-900">Browse Modules</p>
               <p className="text-sm text-gray-500">Find new modules to install</p>
             </div>
-          </Link>
+          </a>
           
-          <Link
-            to="/settings"
+          <a
+            href="/settings"
             className="flex items-center space-x-3 p-4 border border-gray-200 rounded-lg hover:border-primary-300 hover:bg-primary-50 transition-colors"
           >
             <Clock className="text-primary-600" size={20} />
@@ -249,20 +303,8 @@ const Dashboard: React.FC = () => {
               <p className="font-medium text-gray-900">Configure Modules</p>
               <p className="text-sm text-gray-500">Update settings and preferences</p>
             </div>
-          </Link>
+          </a>
           
-          {activeModules.length > 0 && (
-            <Link
-              to={`/modules/${activeModules[0].id}`}
-              className="flex items-center space-x-3 p-4 border border-gray-200 rounded-lg hover:border-primary-300 hover:bg-primary-50 transition-colors"
-            >
-              {getModuleIcon(activeModules[0].icon)}
-              <div>
-                <p className="font-medium text-gray-900">Open {activeModules[0].name}</p>
-                <p className="text-sm text-gray-500">Access your most used module</p>
-              </div>
-            </Link>
-          )}
         </div>
       </div>
     </div>

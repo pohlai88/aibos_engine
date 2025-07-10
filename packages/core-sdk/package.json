@@ -1,7 +1,7 @@
 {
   "name": "@aibos/core-sdk",
   "version": "1.0.0",
-  "description": "Core SDK for AIBOS Engine module development",
+  "description": "Core SDK for AIBOS Engine modules and applications",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -15,7 +15,7 @@
     "lint:fix": "eslint src --ext .ts,.tsx --fix"
   },
   "dependencies": {
-    "@aibos/types": "file:../types"
+    "@aibos/types": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.0.0",

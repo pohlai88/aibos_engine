@@ -15,7 +15,7 @@
     "lint:fix": "eslint src --ext .ts,.tsx --fix"
   },
   "dependencies": {
-    "@aibos/types": "file:../types",
+    "@aibos/types": "workspace:*",
     "dockerode": "^3.3.0",
     "@kubernetes/client-node": "^0.20.0",
     "yaml": "^2.3.0",
