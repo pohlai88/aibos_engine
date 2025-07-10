@@ -10,6 +10,7 @@ import {
   Moon,
   Sun,
   Monitor
+} from 'lucide-react';
 
 
 const Settings: React.FC = () => {

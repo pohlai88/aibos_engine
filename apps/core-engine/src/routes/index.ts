@@ -4,7 +4,6 @@ import authRoutes from './auth';
 import moduleRoutes from './modules';
 import tenantRoutes from './tenants';
 import userRoutes from './users';
-import billingRoutes from './billing';
 
 export const setupRoutes = (config: APIConfig): Router => {
   const router = Router();
@@ -28,7 +27,6 @@ export const setupRoutes = (config: APIConfig): Router => {
   router.use('/modules', moduleRoutes);
   router.use('/tenants', tenantRoutes);
   router.use('/users', userRoutes);
-  router.use('/billing', billingRoutes);
 
   // API info endpoint
   router.get('/', (req, res) => {
@@ -41,8 +39,7 @@ export const setupRoutes = (config: APIConfig): Router => {
         auth: '/auth',
         modules: '/modules',
         tenants: '/tenants',
-        users: '/users',
-        billing: '/billing'
+        users: '/users'
       }
     });
   });

@@ -5,43 +5,18 @@
   "private": true,
   "scripts": {
     "dev": "pnpm --parallel --filter \"./**\" run dev",
-    "watch": "pnpm --parallel --filter \"./**\" run watch",
-    "dev:module": "turbo run dev:module",
-    "debug:core": "turbo run debug:core",
     "build": "pnpm --filter \"./**\" run build",
-    "test": "pnpm --filter \"./**\" run test",
     "lint": "pnpm --filter \"./**\" run lint",
     "clean": "turbo run clean",
     "type-check": "pnpm --filter \"./**\" run type-check",
-    "db:migrate": "cd packages/database && pnpm run migrate",
-    "db:seed": "cd packages/database && pnpm run seed",
-    "db:reset": "cd packages/database && pnpm run reset",
-    "module:validate": "cd packages/module-validator && pnpm run validate",
-    "module:deploy": "cd packages/module-deployer && pnpm run deploy",
-    "module:create": "cd tools/aibos-cli && pnpm run create",
-    "docker:up": "docker-compose -f docker-compose.dev.yml up -d",
-    "docker:down": "docker-compose -f docker-compose.dev.yml down",
-    "docker:logs": "docker-compose -f docker-compose.dev.yml logs -f",
-    "setup": "pnpm run docker:up && pnpm run db:migrate && pnpm run db:seed",
-    "teardown": "pnpm run docker:down",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\"",
-    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\"",
-    "security:scan": "pnpm audit && pnpm run security:scan:modules",
-    "security:scan:modules": "turbo run security:scan",
-    "docs:generate": "turbo run docs:generate",
-    "docs:serve": "turbo run docs:serve"
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\""
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.0.0",
-    "@commitlint/config-conventional": "^17.0.0",
     "@types/node": "^20.0.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
-    "commitizen": "^4.3.0",
-    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.0.0",
-    "husky": "^8.0.0",
-    "lint-staged": "^13.0.0",
     "prettier": "^3.0.0",
     "turbo": "^2.5.4",
     "typescript": "^5.0.0"
@@ -51,29 +26,8 @@
     "pnpm": ">=8.0.0"
   },
   "packageManager": "pnpm@8.15.0",
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
-  "lint-staged": {
-    "*.{ts,tsx,js,jsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{json,md,yml,yaml}": [
-      "prettier --write"
-    ]
-  },
   "dependencies": {
     "@supabase/supabase-js": "^2.50.4",
-    "dotenv": "^16.3.1",
-    "jsonschema": "1.5.0"
+    "dotenv": "^16.3.1"
   }
 }

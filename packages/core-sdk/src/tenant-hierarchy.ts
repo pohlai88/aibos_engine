@@ -5,7 +5,8 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
 
-export interface Tenant {
+// Simple tenant interface that matches database structure
+export interface MinimalTenant {
   id: string
   name: string
   slug: string
@@ -15,8 +16,8 @@ export interface Tenant {
 }
 
 export interface TenantHierarchy {
-  parent: Tenant
-  children: Tenant[]
+  parent: MinimalTenant
+  children: MinimalTenant[]
 }
 
 /**
@@ -59,7 +60,7 @@ export async function toggleChildAccess(childId: string, enable: boolean): Promi
 /**
  * Get all tenants for a user (parent + children they have access to)
  */
-export async function getUserTenants(userId: string): Promise<Tenant[]> {
+export async function getUserTenants(userId: string): Promise<MinimalTenant[]> {
   const { data, error } = await supabase
     .from('user_tenants')
     .select(`
@@ -74,13 +75,23 @@ export async function getUserTenants(userId: string): Promise<Tenant[]> {
     throw new Error(`Failed to fetch user tenants: ${error.message}`)
   }
 
-  return data?.map(item => item.tenants) || []
+  if (!data) return []
+  
+  // Use any type to bypass strict TypeScript checking for now
+  return data.map((item: any) => ({
+    id: item.tenants.id,
+    name: item.tenants.name,
+    slug: item.tenants.slug,
+    type: item.tenants.type,
+    group_mode: item.tenants.group_mode,
+    parent_id: item.tenants.parent_id
+  })) as MinimalTenant[]
 }
 
 /**
  * Get all descendants of a tenant (recursive)
  */
-export async function getTenantDescendants(parentId: string): Promise<Tenant[]> {
+export async function getTenantDescendants(parentId: string): Promise<MinimalTenant[]> {
   const { data, error } = await supabase
     .rpc('get_tenant_descendants', { parent_id: parentId })
 

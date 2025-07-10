@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getTenantHierarchy, toggleChildAccess, TenantHierarchy, Tenant } from '@aibos/core-sdk'
+import { getTenantHierarchy, toggleChildAccess, TenantHierarchy, MinimalTenant } from '@aibos/core-sdk'
 
 interface TenantAdminProps {
   parentTenantId: string
@@ -125,7 +125,7 @@ export function TenantAdmin({ parentTenantId }: TenantAdminProps) {
 }
 
 interface ChildTenantCardProps {
-  child: Tenant
+  child: MinimalTenant
   onToggle: (childId: string, enable: boolean) => Promise<void>
 }
 
@@ -201,29 +201,35 @@ function EmptyStates({ tenantId }: EmptyStatesProps) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // This would be replaced with actual Supabase query
-    // For now, just show a placeholder
-    setLoading(false)
-    setStates([])
+    const loadStates = async () => {
+      try {
+        setLoading(true)
+        // This would call the getEmptyStatesWithInheritance function
+        // For now, just show a placeholder
+        setStates([])
+      } catch (err) {
+        console.error('Failed to load empty states:', err)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadStates()
   }, [tenantId])
 
   if (loading) {
-    return <div className="text-sm text-gray-500">Loading...</div>
+    return <div className="text-sm text-gray-500">Loading states...</div>
   }
 
   if (states.length === 0) {
-    return (
-      <div className="text-sm text-gray-500">
-        No empty states configured
-      </div>
-    )
+    return <div className="text-sm text-gray-500">No empty states configured</div>
   }
 
   return (
     <div className="space-y-2">
-      {states.map((state) => (
-        <div key={state.id} className="text-sm">
-          {state.title}
+      {states.map((state, index) => (
+        <div key={index} className="text-sm text-gray-700">
+          {state.name}
         </div>
       ))}
     </div>

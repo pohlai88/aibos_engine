@@ -26,8 +26,6 @@
   "references": [
     { "path": "../../packages/types" },
     { "path": "../../packages/auth" },
-    { "path": "../../packages/database" },
-    { "path": "../../packages/billing" },
-    { "path": "../../packages/observability" }
+    { "path": "../../packages/database" }
   ]
 } 
