@@ -1,39 +1,37 @@
-name: CI
+name: CI Pipeline
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+on: [push, pull_request]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
-    strategy:
-      matrix:
-        node-version: [18.x]
-    
     steps:
-      - name: Checkout code
+      # 1. Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
-        
-      - name: Setup pnpm
+
+      # 2. Install pnpm FIRST
+      - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 8
-          
-      - name: Setup Node.js ${{ matrix.node-version }}
+          run_install: false  # Skip auto-install (we'll do it manually)
+
+      # 3. Set up Node.js with pnpm caching
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
-          
+          node-version: 18  # Specify your Node version
+          cache: 'pnpm'     # Enable caching for pnpm
+
+      # 4. Install dependencies
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
-        
+        run: pnpm install --frozen-lockfile
+
+      # 5. Run type checking
       - name: Type check
         run: pnpm run type-check
-        
+
+      # 6. Build project
       - name: Build
         run: pnpm run build 
