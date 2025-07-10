@@ -1,0 +1,160 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.app-header {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  text-align: center;
+  color: white;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.app-header h1 {
+  margin: 0 0 0.5rem 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.app-header p {
+  margin: 0;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.app-main {
+  flex: 1;
+  padding: 2rem;
+}
+
+.dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.module-list,
+.user-list {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.module-list h2,
+.user-list h2 {
+  margin: 0 0 1rem 0;
+  color: #333;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.module-grid,
+.user-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.module-card,
+.user-card {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 1rem;
+  transition: all 0.2s ease;
+}
+
+.module-card:hover,
+.user-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.module-card h3,
+.user-card h3 {
+  margin: 0 0 0.5rem 0;
+  color: #495057;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.module-card p,
+.user-card p {
+  margin: 0.25rem 0;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.status {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.status.healthy {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status.warning {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status.error {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.status.active {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status.inactive {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.status.suspended {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.app-footer {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 1rem;
+  text-align: center;
+  color: white;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.app-footer p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+  
+  .app-header h1 {
+    font-size: 2rem;
+  }
+  
+  .app-main {
+    padding: 1rem;
+  }
+}
