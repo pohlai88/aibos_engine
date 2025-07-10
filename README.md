@@ -1,6 +1,6 @@
-# AIBOS Engine - SaaS Operating System
+# AI-BOS Engine - SaaS Operating System
 
-AIBOS Engine is a true SaaS operating system that provides a modular, plug-and-play platform for business applications. Think of it as "Windows for SaaS" - a central operating system that manages resources, permissions, and communication while allowing developers to create and deploy modules that seamlessly integrate into the ecosystem.
+AIBOS Engine is a **true SaaS operating system** that provides a modular, plug-and-play platform for business applications. Think of it as "Windows Store for SaaS" - a central platform where organizations can discover, install, and manage business modules while developers can create and monetize their solutions.
 
 ## 🚀 Quick Start
 
@@ -8,10 +8,10 @@ AIBOS Engine is a true SaaS operating system that provides a modular, plug-and-p
 # Install dependencies
 pnpm install
 
-# Develop (all packages)
+# Start development environment
 pnpm run dev
 
-# Build
+# Build all packages
 pnpm run build
 
 # Type check
@@ -21,264 +21,299 @@ pnpm run type-check
 pnpm run test
 ```
 
-## 🏗️ Architecture Overview
+## 🏗️ Current Architecture
 
-### Core Components
+### What We've Built (Production-Ready)
 
-1. **Core Engine** (`apps/core-engine/`) - The "kernel" managing:
-   - Tenant lifecycle
-   - Module orchestration
-   - System event bus
-   - Resource allocation
-2. **Module Store** (`apps/module-store/`) - Marketplace with:
-   - Module discovery
-   - Version management
-   - Dependency resolution
-3. **Admin Console** (`apps/admin-console/`) - Management interface for:
-   - Tenant provisioning
-   - Module deployment
-   - System monitoring
-4. **Tenant Portal** (`apps/tenant-portal/`) - Customizable interface per tenant
+**Multi-Tenant SaaS Foundation:**
+- **Supabase Integration** - PostgreSQL + Auth + Real-time
+- **Parent-Child Tenants** - Hierarchical organization structure
+- **Dynamic Empty States** - Inheritable, multi-tenant onboarding
+- **Type-Safe Development** - Full TypeScript with shared types
+- **Bulletproof Backend** - Circular reference prevention, inheritance rules
+
+**Core Components:**
+1. **Admin Console** (`apps/admin-app/`) - Tenant management interface
+2. **Core Engine** (`apps/core-engine/`) - Backend API services
+3. **Module Store** (`apps/module-store/`) - Marketplace interface
+4. **Tenant Portal** (`apps/tenant-portal/`) - Customizable tenant interface
 
 ### Shared Packages
 
-| Package | Responsibility | Key Technologies |
-|---------|---------------|------------------|
-| `@aibos/core` | Core engine implementation | TypeScript, Node.js |
-| `@aibos/core-sdk` | Module development toolkit | TypeScript, GraphQL |
-| `@aibos/database` | Core schema + migrations | PostgreSQL, TypeORM |
-| `@aibos/auth` | Multi-tenant auth | OAuth2, JWT, RBAC |
-| `@aibos/billing` | Subscription engine | Stripe integration |
-| `@aibos/observability` | Monitoring & metrics | Prometheus, Winston |
-| `@aibos/module-validator` | Security/compliance checks | OPA, SAST tools |
-| `@aibos/module-deployer` | Zero-downtime deployments | Kubernetes, Docker |
-| `@aibos/types` | Shared TypeScript types | TypeScript |
+| Package | Responsibility | Status |
+|---------|---------------|---------|
+| `@aibos/core-sdk` | Core SDK with tenant hierarchy | ✅ Complete |
+| `@aibos/types` | Shared TypeScript types | ✅ Complete |
+| `@aibos/auth` | Multi-tenant authentication | ✅ Complete |
+| `@aibos/database` | Database schema & migrations | ✅ Complete |
+| `@aibos/billing` | Subscription management | 🔄 In Progress |
+| `@aibos/observability` | Monitoring & metrics | 🔄 In Progress |
+| `@aibos/module-validator` | Module validation | 🎯 Planned |
+| `@aibos/module-deployer` | Module deployment | 🎯 Planned |
 
-## 🚀 Key Features
+## 🎯 Key Features
 
-### Operating System Capabilities
+### Current Implementation
 ```mermaid
 graph TD
-    A[Core Engine] --> B[Tenant Isolation]
-    A --> C[Module Sandbox]
-    A --> D[Service Mesh]
-    A --> E[Event Bus]
-    B --> F[PostgreSQL RLS]
-    C --> G[WebAssembly]
-    D --> H[gRPC]
-    E --> I[NATS]
+    A[Multi-Tenant SaaS] --> B[Parent-Child Hierarchy]
+    A --> C[Dynamic Empty States]
+    A --> D[Type-Safe APIs]
+    B --> E[Organization Management]
+    C --> F[Inheritable Content]
+    D --> G[Shared SDK]
 ```
 
-### Module System Specifications
-- **Manifest Requirements**:
-  ```yaml
-  # Required Fields
-  id: unique-module-id
-  version: semver
-  apiVersion: engine-compatibility-version
-  dependencies: 
-    - core-sdk@^2.3.0
-    - auth@^1.5.0
-  
-  # Security
-  permissions:
-    - data:read
-    - data:write:limited
-  
-  # Resources
-  resourceLimits:
-    cpu: 0.5
-    memory: 512Mi
-  ```
+### Marketplace Flow
+```mermaid
+graph TD
+    A[Module Store] --> B[Browse Modules]
+    B --> C[Module Details]
+    C --> D[Install Module]
+    D --> E[Module Configuration]
+    E --> F[Tenant Workspace]
+    F --> G[Module Active]
+    
+    H[Developer Portal] --> I[Create Module]
+    I --> J[Submit for Review]
+    J --> K[AI Co-Pilot Validation]
+    K --> L[Published to Store]
+    L --> A
+    
+    M[Revenue Sharing] --> N[Module Sales]
+    N --> O[Developer Payouts]
+    N --> P[Platform Revenue]
+```
+
+### Tenant Management
+- **Hierarchical Structure** - Parent organizations with child tenants
+- **Data Isolation** - Row-level security with Supabase RLS
+- **Inheritance Rules** - Empty states and settings cascade down
+- **Group Mode** - Toggle between shared and isolated data
+
+### Module System (Foundation)
+- **Registry System** - Track installed modules and versions
+- **Dependency Management** - Automatic resolution and validation
+- **Safe Installation** - Rollback capabilities and validation
+- **Metadata Validation** - Ensure module compatibility
 
 ## 🛠️ Development Setup
 
-### Modern Monorepo Stack
-- **Package Manager**: pnpm (3x faster installs, strict dependency isolation)
-- **Build System**: Turbo (smart caching, parallel builds)
-- **TypeScript**: Strict mode across all packages
-- **CI/CD**: GitHub Actions with pnpm
+### Prerequisites
+- **Node.js** 20.x+ (LTS)
+- **pnpm** 8.x+
+- **Supabase** account and project
 
-### Enhanced Local Development
+### Environment Setup
 ```bash
-# Start with Docker Compose
-docker-compose -f docker-compose.db.yml up
+# Clone the repository
+git clone <your-repo>
+cd aibos_engine
 
-# Module Development Hot-Reload
-pnpm --filter @aibos/core run dev
+# Install dependencies
+pnpm install
 
-# Debugging Tools
-pnpm run debug:core # Starts core with inspector
+# Set up environment variables
+cp env.example .env.local
+# Edit .env.local with your Supabase credentials
+
+# Start development
+pnpm run dev
 ```
 
-### Workspace Commands
-```bash
-# Add dependency to specific package
-pnpm add --filter @aibos/core lodash
+### Environment Variables
 
-# Run script in specific package
-pnpm --filter @aibos/auth run test
+| Variable | Description | Required | Example |
+|----------|-------------|----------|---------|
+| `SUPABASE_URL` | Your Supabase project URL | ✅ | `https://your-project.supabase.co` |
+| `SUPABASE_ANON_KEY` | Supabase public key | ✅ | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...` |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key | ✅ | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...` |
+| `NEXT_PUBLIC_APP_URL` | Your app's public URL | ✅ | `http://localhost:3000` |
+| `STRIPE_SECRET_KEY` | Stripe secret key for payments | 🔄 | `sk_test_...` |
+| `STRIPE_PUBLISHABLE_KEY` | Stripe publishable key | 🔄 | `pk_test_...` |
+| `DATABASE_URL` | Direct database connection | 🔄 | `postgresql://...` |
+| `JWT_SECRET` | JWT signing secret | 🔄 | `your-secret-key` |
 
-# Build all packages
-pnpm run build
-
-# Type check all packages
-pnpm run type-check
+### Database Setup
+```sql
+-- Run in Supabase SQL Editor
+-- This creates the multi-tenant schema
+BEGIN;
+CREATE TYPE tenant_type AS ENUM ('individual', 'organization');
+-- ... (see scripts/add-descendants-function.sql for full schema)
+COMMIT;
 ```
 
-### CI/CD Pipeline
-```mermaid
-graph LR
-    A[Module PR] --> B[Security Scan]
-    B --> C[Compatibility Test]
-    C --> D[Performance Benchmark]
-    D --> E[Approval]
-    E --> F[Store Deployment]
-```
+## 🚀 What We're Building Toward
 
-## 🔧 Module Development
+### Vision: SaaS Marketplace Ecosystem
 
-### Advanced Module Template
+**For Organizations:**
+- **One-Click Installation** - Install business modules like apps
+- **Customizable Workspace** - Mix and match functionality
+- **Scalable Growth** - Add modules as your business grows
+
+**For Developers:**
+- **Module Marketplace** - Publish and monetize your solutions
+- **Revenue Sharing** - Earn from module installations
+- **Quality Standards** - AI Co-Pilot ensures code quality
+
+**For the Platform:**
+- **Network Effects** - More modules attract more users
+- **Quality Control** - Automated validation and testing
+- **Scalable Infrastructure** - Handle thousands of tenants
+
+## 📦 Module Ecosystem
+
+### Module Types
+- **CRM Modules** - Customer relationship management
+- **ERP Modules** - Enterprise resource planning
+- **HR Modules** - Human resources management
+- **Accounting Modules** - Financial management
+- **Custom Modules** - Any business functionality
+
+### Module Development
 ```typescript
-// modules/my-module/src/index.ts
-import { ModuleBase } from '@aibos/types';
-
-export default class MyModule extends ModuleBase {
-  static metadata = {
-    // Type-safe manifest
-  };
-
-  async onActivate(tenantId: string) {
-    // Tenant-specific initialization
-  }
-
-  apiRoutes = [
-    {
-      path: '/data',
-      handler: this.getData,
-      middleware: [this.authMiddleware]
-    }
-  ];
+// Example module structure
+interface ModuleMetadata {
+  id: string;
+  name: string;
+  version: string;
+  category: ModuleCategory;
+  dependencies: string[];
+  permissions: ModulePermissions;
+  entryPoints: ModuleEntryPoints;
 }
 ```
 
-## 🔒 Security & Governance
+## 🔒 Security & Compliance
 
-### Data Access Control Matrix
-| Level | Technology | Enforcement Point |
-|-------|------------|-------------------|
-| Column | PostgreSQL Encryption | DB Driver |
-| Row | RLS Policies | Query Rewriter |
-| Field | GraphQL Masking | API Gateway |
-| Operation | OPA Policies | Auth Middleware |
+### Multi-Tenant Security
+- **Row-Level Security** - Data isolation between tenants
+- **Role-Based Access** - Fine-grained permissions
+- **Audit Logging** - Complete activity tracking
+- **Circular Reference Prevention** - Safe tenant hierarchies
 
-## 📊 Observability Stack
-- **Metrics**: Prometheus + Grafana
-- **Logs**: Loki + Tempo
-- **Traces**: OpenTelemetry
-- **Audit**: Immutable DB ledger
+### Data Protection
+- **Encryption** - At rest and in transit
+- **Backup Strategy** - Automated with failover
+- **Compliance Ready** - GDPR, CCPA support
+- **Privacy Controls** - User data management
 
-## ➕ Recommended Additions
+### Security Headers & Protections
+- **Content Security Policy** - Prevent XSS attacks
+- **CSRF Protection** - Cross-site request forgery prevention
+- **HTTP Security Headers** - HSTS, X-Frame-Options, X-Content-Type-Options
+- **Secret Rotation** - Automated key management
+- **Vulnerability Scanning** - Regular security audits
+- **Module Sandboxing** - Isolated execution environment
 
-1. **Module Versioning Strategy**:
-   - Semantic versioning enforcement
-   - Automatic rollback on failure
-   - Canary deployments
+### Authentication & Authorization
+- **Multi-Factor Authentication** - Enhanced login security
+- **Session Management** - Secure session handling
+- **OAuth Integration** - Social login options
+- **API Rate Limiting** - Prevent abuse and DDoS
+- **Developer Identity Verification** - Trusted marketplace
 
-2. **Performance Isolation**:
-   ```yaml
-   # module-resources.yaml
-   quotas:
-     default:
-       cpu: 1.0
-       memory: 1Gi
-     premium:
-       cpu: 2.0
-       memory: 2Gi
-   ```
+## 📊 Current Status
 
-3. **Developer Tools**:
-   - `aibos-cli` for module management
-   - VSCode extension for manifest validation
-   - Local testing sandbox
+### ✅ Completed (75%)
+- **Multi-tenant architecture** with parent-child relationships
+- **Supabase integration** with PostgreSQL and Auth
+- **Type-safe development** environment
+- **Dynamic empty states** system
+- **Bulletproof backend** with validation
+- **Admin interface** for tenant management
 
-## 🚀 Next Steps Implementation Guide
+### 🔄 In Progress (15%)
+- **Module marketplace** UI
+- **Installation system** for modules
+- **Developer portal** for module creators
+- **Billing integration** for subscriptions
 
-1. **Phase 1 - Core Foundation**:
-   - Implement tenant isolation
-   - Build module loader
-   - Create basic SDK
-
-2. **Phase 2 - Ecosystem**:
-   - Develop validation pipeline
-   - Launch module store
-   - Create reference modules
-
-3. **Phase 3 - Scale**:
-   - Performance optimization
-   - Developer portal
-   - Marketplace monetization
-
-## 📁 Project Structure
-
-```
-aibos-engine/
-├── apps/                    # Applications
-│   ├── core-engine/         # Central OS kernel
-│   ├── module-store/        # Marketplace frontend
-│   ├── admin-console/       # Management interface
-│   └── tenant-portal/       # Tenant-facing interface
-├── packages/                # Shared packages
-│   ├── core/               # Core engine implementation
-│   ├── core-sdk/           # SDK for module development
-│   ├── database/           # Core schema and migrations
-│   ├── auth/               # Authentication services
-│   ├── billing/            # Subscription management
-│   ├── observability/      # Monitoring and metrics
-│   ├── module-validator/   # Module validation system
-│   ├── module-deployer/    # Module deployment system
-│   └── types/              # Shared TypeScript types
-├── modules/                # Approved plug-and-play modules
-│   ├── crm/               # CRM module example
-│   ├── erp/               # ERP module example
-│   └── ...                # More modules
-├── tools/                  # Development tools and scripts
-├── scripts/                # Build and deployment scripts
-├── .github/                # CI/CD workflows
-├── pnpm-workspace.yaml     # pnpm workspace configuration
-├── turbo.json             # Turbo build configuration
-└── package.json           # Root package configuration
-```
+### 🎯 Planned (10%)
+- **AI Co-Pilot** for code quality
+- **Advanced module system** with sandboxing
+- **Revenue sharing** platform
+- **Advanced analytics** and insights
 
 ## 🛠️ Technology Stack
 
 ### Core Technologies
-- **Runtime**: Node.js 18+
-- **Language**: TypeScript 5.0+
-- **Package Manager**: pnpm 8.0+
-- **Build Tool**: Turbo 2.5+
-- **Database**: PostgreSQL with TypeORM
-- **Authentication**: JWT, OAuth2, RBAC
-- **API**: GraphQL, REST
-- **Containerization**: Docker, Kubernetes
+- **Runtime**: Node.js 20.x+
+- **Language**: TypeScript 5.3.2+
+- **Package Manager**: pnpm 8.x+
+- **Build Tool**: Turborepo 2.5+
+- **Database**: PostgreSQL (Supabase)
+- **Authentication**: Supabase Auth
+- **API**: REST with OpenAPI
 
-### Development Tools
-- **Linting**: ESLint with TypeScript rules
-- **Formatting**: Prettier
-- **Testing**: Jest
-- **CI/CD**: GitHub Actions
-- **Monitoring**: Prometheus, Grafana
-- **Logging**: Winston
+## 👨‍💻 Marketplace Contributor Guide
+
+### For Module Developers
+
+**Getting Started:**
+1. **Register as Developer** - Create your developer account
+2. **Review Guidelines** - Understand quality standards
+3. **Build Your Module** - Follow our module specification
+4. **Submit for Review** - AI Co-Pilot will validate your code
+5. **Publish & Monetize** - Earn from module installations
+
+**Module Requirements:**
+- **TypeScript** - All modules must be written in TypeScript
+- **Documentation** - Complete API documentation required
+- **Testing** - Minimum 80% test coverage
+- **Security** - Pass automated security scanning
+- **Performance** - Meet performance benchmarks
+
+**Revenue Model:**
+- **Revenue Sharing** - 70% to developers, 30% to platform
+- **Subscription Tiers** - Free, Pro, Enterprise pricing
+- **Usage-Based** - Pay per API call or feature usage
+- **Marketplace Fees** - One-time listing fees for premium placement
+
+### Quality Assurance Process
+1. **Automated Testing** - AI Co-Pilot runs comprehensive tests
+2. **Security Scanning** - Vulnerability and code analysis
+3. **Performance Review** - Load testing and optimization
+4. **Manual Review** - Human review for edge cases
+5. **Beta Testing** - Limited release for feedback
+6. **Production Release** - Full marketplace availability
+
+## 📈 Roadmap & Future Plans
+
+See [ROADMAP.md](./ROADMAP.md) for detailed development phases, milestones, and upcoming features.
+
+**Key Upcoming Features:**
+- **AI Co-Pilot Integration** - Automated code quality validation
+- **Advanced Module System** - Sandboxing and version management
+- **Revenue Sharing Platform** - Developer monetization
+- **Enterprise Features** - Advanced security and compliance
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run tests: `pnpm run test`
-5. Run type check: `pnpm run type-check`
-6. Submit a pull request
+We welcome contributions from the community! Please see our [Contributing Guide](./CONTRIBUTING.md) for details on:
 
-## 📄 License
+- **Code Standards** - TypeScript, testing, documentation
+- **Development Workflow** - Git flow, PR process
+- **Module Development** - How to create and submit modules
+- **Community Guidelines** - Code of conduct and standards
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+## 📞 Support & Community
+
+- **Documentation**: [docs.aibos.dev](https://docs.aibos.dev)
+- **Developer Forum**: [community.aibos.dev](https://community.aibos.dev)
+- **Bug Reports**: [GitHub Issues](https://github.com/your-org/aibos-engine/issues)
+- **Feature Requests**: [GitHub Discussions](https://github.com/your-org/aibos-engine/discussions)
+
+---
+
+## 🎯 Vision Statement
+
+**AI-BOS Engine** is creating the **"Windows Store for SaaS"** - a platform where:
+
+- **Organizations** can rapidly deploy business solutions with one-click installation
+- **Developers** can monetize their expertise by creating and selling modules  
+- **The Platform** grows stronger with every module, creating network effects
+
+**We're building the future of business software - one module at a time.** 🚀 

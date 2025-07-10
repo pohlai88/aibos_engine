@@ -26,4 +26,7 @@ export const devTools = {
   generateTypes: () => {},
   createMigration: () => {},
   testModule: () => {}
-}; 
+};
+
+// Tenant hierarchy utilities
+export * from './tenant-hierarchy'; 

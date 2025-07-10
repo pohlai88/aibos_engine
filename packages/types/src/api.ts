@@ -472,4 +472,19 @@ export interface ValidationRule {
   params: Record<string, any>;
   /** Rule message */
   message: string;
+}
+
+// Simplified API response types for basic REST endpoints
+export interface SimpleAPIResponse<T = any> {
+  success: boolean;
+  data?: T;
+  error?: {
+    code: number;
+    message: string;
+  };
+}
+
+export interface SimpleAPIError {
+  code: number;
+  message: string;
 } 
