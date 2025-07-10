@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "@aibos/types": "file:../types",
-    "@aibos/validator": "file:../module-validator",
     "dockerode": "^3.3.0",
     "@kubernetes/client-node": "^0.20.0",
     "yaml": "^2.3.0",
