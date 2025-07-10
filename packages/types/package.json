@@ -1,0 +1,20 @@
+{
+  "name": "@aibos/types",
+  "version": "1.0.0",
+  "description": "Shared TypeScript types for AIBOS Engine",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rimraf dist",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "rimraf": "^5.0.0"
+  },
+  "files": [
+    "dist"
+  ]
+} 

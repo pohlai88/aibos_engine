@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@aibos/*": ["packages/*/src"]
+    }
+  },
+  "include": [
+    "apps/**/*",
+    "packages/**/*",
+    "modules/**/*",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    ".turbo",
+    "dist",
+    "build"
+  ]
+} 

@@ -1,0 +1,53 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ActivityType = exports.NotificationType = exports.UserRole = exports.UserStatus = void 0;
+var UserStatus;
+(function (UserStatus) {
+    UserStatus["ACTIVE"] = "active";
+    UserStatus["INACTIVE"] = "inactive";
+    UserStatus["SUSPENDED"] = "suspended";
+    UserStatus["LOCKED"] = "locked";
+    UserStatus["PENDING"] = "pending";
+})(UserStatus || (exports.UserStatus = UserStatus = {}));
+var UserRole;
+(function (UserRole) {
+    UserRole["SUPER_ADMIN"] = "super_admin";
+    UserRole["TENANT_ADMIN"] = "tenant_admin";
+    UserRole["USER"] = "user";
+    UserRole["GUEST"] = "guest";
+    UserRole["API_USER"] = "api_user";
+})(UserRole || (exports.UserRole = UserRole = {}));
+var NotificationType;
+(function (NotificationType) {
+    NotificationType["SYSTEM"] = "system";
+    NotificationType["SECURITY"] = "security";
+    NotificationType["UPDATES"] = "updates";
+    NotificationType["FEATURES"] = "features";
+    NotificationType["BILLING"] = "billing";
+    NotificationType["SUPPORT"] = "support";
+    NotificationType["MODULES"] = "modules";
+    NotificationType["DATA"] = "data";
+    NotificationType["USERS"] = "users";
+    NotificationType["REPORTS"] = "reports";
+})(NotificationType || (exports.NotificationType = NotificationType = {}));
+var ActivityType;
+(function (ActivityType) {
+    ActivityType["LOGIN"] = "login";
+    ActivityType["LOGOUT"] = "logout";
+    ActivityType["PASSWORD_CHANGE"] = "password_change";
+    ActivityType["PROFILE_UPDATE"] = "profile_update";
+    ActivityType["SETTINGS_UPDATE"] = "settings_update";
+    ActivityType["MODULE_INSTALL"] = "module_install";
+    ActivityType["MODULE_UNINSTALL"] = "module_uninstall";
+    ActivityType["DATA_CREATE"] = "data_create";
+    ActivityType["DATA_UPDATE"] = "data_update";
+    ActivityType["DATA_DELETE"] = "data_delete";
+    ActivityType["API_CALL"] = "api_call";
+    ActivityType["FILE_UPLOAD"] = "file_upload";
+    ActivityType["FILE_DOWNLOAD"] = "file_download";
+    ActivityType["EXPORT"] = "export";
+    ActivityType["IMPORT"] = "import";
+    ActivityType["REPORT_GENERATE"] = "report_generate";
+    ActivityType["INTEGRATION_CONNECT"] = "integration_connect";
+    ActivityType["INTEGRATION_DISCONNECT"] = "integration_disconnect";
+})(ActivityType || (exports.ActivityType = ActivityType = {}));
